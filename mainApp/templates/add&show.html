@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+ <div class="row">
+    <div class="col-sm-4" id="form">
+      <h4 class="text-center alert alert-info">Enter Employee Information</h4>
+      <form action="" method="post" novalidate>
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" class="btn btn-primary btn-sm" value="Submit"/>
+      </form>
+    </div>
+    <div class="col-sm-7 offset-1" id="show">
+        <h4 class="text-center alert alert-success">All Employee Information</h4>
+         <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Serial No.</th>
+                    <th scope="col">Emp ID</th>
+                    <th scope="col">Emp. Name</th>
+                    <th scope="col">Emp. Desgination</th>
+                    <th scope="col">Emp. Salary</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for e in employee %}
+                <tr>
+                    <td scope="row">{{e.id}}</td>
+                    <td>{{e.empID}}</td>
+                    <td>{{e.empName}}</td>
+                    <td>{{e.empDesgination}}</td>
+                    <td>{{e.empSalary}}</td>
+                    <td>
+                        <a href="{% url 'edit'  e.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{% url 'delete' e.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+         </table>
+    </div>
+ </div>
+
+{% endblock content %}
